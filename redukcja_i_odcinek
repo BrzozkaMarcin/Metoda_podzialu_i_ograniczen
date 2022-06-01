@@ -3,15 +3,29 @@
 import numpy as np
 from typing import Tuple
 
-def redukcja_i_odcinek(A: np.ndarray) -> Tuple[float, Tuple[int, int]]:
+def redukcja_macierzy(A: np.ndarray, verbose: bool = False) -> float:
     """
-    Algorytm Little'a - redukcja macierzy
+    Redukcja macierzy in-place (krok 1)
 
     :param A: Macierz przejść do redukcji, jest redukowana in-place.
-    :type A: np.ndarray
-    
-    :returns: Wartość redukcji oraz indeksy wierzchołków najlepszego odcinka do wyłączenia
-    :rtype: Tuple[float, int]
+    :type A: np.ndarray, dtype='float'
+    :param verbose: Dodatkowe wyświetlanie danych (debug).
+    :type verbose: bool
+
+    :returns: Wartość redukcji.
+    :rtype: float
     """
-    print("redukcja_i_odcinek - nie zaimplementowane")
-    return 0, (0, 1)
+    pass
+
+
+def optymistyczny_odcinek(A: np.ndarray) -> Tuple[int, int]
+    """
+    Wyszukiwanie odcinka o max koszcie wyłączenia (krok 2)
+
+    :param A: Macierz przejść, zredukowana wcześniej.
+    :type A: np.ndarray, dtype='float'
+    
+    :returns: Indeksy wierzchołków najlepszego odcinka do wyłączenia.
+    :rtype: Tuple[int, int]
+    """
+    pass
