@@ -1,0 +1,17 @@
+# autor: Piotr Sikorski
+
+import numpy as np
+from typing import Tuple
+
+def redukcja_i_odcinek(A: np.ndarray) -> Tuple[float, Tuple[int, int]]:
+    """
+    Algorytm Little'a - redukcja macierzy
+
+    :param A: Macierz przejść do redukcji, jest redukowana in-place.
+    :type A: np.ndarray
+    
+    :returns: Wartość redukcji oraz indeksy wierzchołków najlepszego odcinka do wyłączenia
+    :rtype: Tuple[float, int]
+    """
+    print("redukcja_i_odcinek - nie zaimplementowane")
+    return 0, (0, 1)
