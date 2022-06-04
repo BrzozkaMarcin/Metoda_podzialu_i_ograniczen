@@ -6,15 +6,6 @@ import numpy as np
 from math import inf
 from typing import Tuple
 
-matrix = [
-    [inf, 2, 3, 2, 1, 2],
-    [2, inf, 1, 3, 2, 4],
-    [3, 1, inf, 1, 1, 3],
-    [2, 3, 1, inf, 2, 2],
-    [1, 2, 1, 2, inf, 3],
-    [2, 4, 3, 2, 3, inf],
-]
-
 
 class Little_algorithm:
     def __init__(self, matrix):
@@ -85,4 +76,22 @@ class Little_algorithm:
             edge = self.optimal_edge(matrix)
             M_with_edge, M_without_edge = self.two_matrix(matrix, edge)
 
+
+
+# matrix = [
+#     [inf, 2, 3, 2, 1, 2],
+#     [2, inf, 1, 3, 2, 4],
+#     [3, 1, inf, 1, 1, 3],
+#     [2, 3, 1, inf, 2, 2],
+#     [1, 2, 1, 2, inf, 3],
+#     [2, 4, 3, 2, 3, inf],
+# ]
+
+matrix = [
+    [inf, 5, 4, 6, 6],
+    [8, inf, 5, 3, 4],
+    [4, 3, inf, 3, 1],
+    [8, 2, 5, inf, 6],
+    [2, 2, 7, 0, inf],
+]
 
