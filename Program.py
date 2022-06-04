@@ -68,20 +68,25 @@ class Little_algorithm:
         return M1, M2
 
     def algoritm(self, matrix):
-        LB = inf
-        solution = []
+        LB_result = inf
+        edges_result = []
 
-        cost = self.reduction(matrix)
-        P = [matrix, cost, []]
+        LB = self.reduction(matrix)
+        P = [matrix, LB, []]
         Problem_list = [P]
 
         while Problem_list:
-            matrix, cost, edges = Problem_list.pop()
+            # Zajęcie się podproblemem - usunięcie go z listy
+            matrix, LB, edges = Problem_list.pop()
 
-            if cost > LB:
+            # Gdy LB pod problemu większe niż LB aktualnego rozwiązania - KZ3
+            if LB > LB_result:
                 continue
 
+            # Znajdź krawędź o optymalnym koszcie wyłączenia
             edge = self.optimal_edge(matrix)
+
+            # Wyznacz macierze dla nowych podproblemów
             M_with_edge, M_without_edge = self.two_matrix(matrix, edge)
 
             # Pierwszy podproblem
@@ -90,6 +95,9 @@ class Little_algorithm:
 
             # Drugi podproblem
             # Redukcja i nowe LB
+
+            # Posortowanie podproblemów pod względem LB
+            Problem_list.sort(key=lambda elem: elem[1], reverse=False)
 
 
 # matrix = [
