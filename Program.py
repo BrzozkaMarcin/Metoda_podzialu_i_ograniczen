@@ -67,7 +67,7 @@ class Little_algorithm:
         M2[row, col] = inf
         return M1, M2
 
-    def algoritm(self, matrix):
+    def algorithm(self, matrix):
         LB_result = inf
         edges_result = []
 
@@ -118,4 +118,4 @@ matrix = [
 ]
 
 little = Little_algorithm(matrix)
-little.algoritm(np.array(matrix))
+little.algorithm(np.array(matrix))
