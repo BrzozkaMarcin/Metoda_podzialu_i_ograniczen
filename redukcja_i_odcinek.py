@@ -21,6 +21,7 @@ def redukcja_macierzy(A: np.ndarray, verbose: bool = False) -> float:
 
     # odjęcie najmniejszego elementu od każdego wiersza
     mn = np.min(A, axis=1, keepdims=True)
+    mn[mn == np.inf] = 0  # może się zdarzyć, że będą tylko infy
     A -= mn
     sum_red += np.sum(mn)
 
@@ -29,6 +30,7 @@ def redukcja_macierzy(A: np.ndarray, verbose: bool = False) -> float:
 
     # odjęcie najmniejszego elementu od każdej kolumny
     mn = np.min(A, axis=0, keepdims=True)
+    mn[mn == np.inf] = 0  # może się zdarzyć, że będą tylko infy
     A -= mn
     sum_red += np.sum(mn)
 
