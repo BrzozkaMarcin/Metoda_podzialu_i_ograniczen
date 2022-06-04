@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+from copy import deepcopy
+
 import numpy as np
 from math import inf
 from typing import Tuple
@@ -26,6 +28,7 @@ class Little_algorithm:
         sum_red = 0
         # odjęcie najmniejszego elementu od każdego wiersza
         mn = np.min(A, axis=1, keepdims=True)
+        mn[mn == np.inf] = 0  # może się zdarzyć, że będą tylko infy
         A -= mn
         sum_red += np.sum(mn)
         if verbose:
@@ -33,6 +36,7 @@ class Little_algorithm:
 
         # odjęcie najmniejszego elementu od każdej kolumny
         mn = np.min(A, axis=0, keepdims=True)
+        mn[mn == np.inf] = 0  # może się zdarzyć, że będą tylko infy
         A -= mn
         sum_red += np.sum(mn)
         if verbose:
@@ -62,3 +66,23 @@ class Little_algorithm:
                 suma_max = suma
                 odcinek = (y, x)
         return odcinek
+
+    def two_matrix(self, matrix, edge):
+        row, col = edge
+        M1 = deepcopy(matrix)  # Macierz z usuniętym wierszem i kolumną
+        M1[row, :] = inf
+        M1[:, col] = inf
+
+        M2 = deepcopy(matrix)  # Macierz z usuniętym odcinkiem
+        M2[row, col] = inf
+        return M1, M2
+
+    def algoritm(self, matrix):
+
+        LB = self.reduction(matrix)
+
+        while True:
+            edge = self.optimal_edge(matrix)
+            M_with_edge, M_without_edge = self.two_matrix(matrix, edge)
+
+
