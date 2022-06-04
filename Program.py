@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from copy import deepcopy
-
 import numpy as np
 from math import inf
 from typing import Tuple
@@ -69,13 +68,28 @@ class Little_algorithm:
         return M1, M2
 
     def algoritm(self, matrix):
+        LB = inf
+        solution = []
 
-        LB = self.reduction(matrix)
+        cost = self.reduction(matrix)
+        P = [matrix, cost, []]
+        Problem_list = [P]
 
-        while True:
+        while Problem_list:
+            matrix, cost, edges = Problem_list.pop()
+
+            if cost > LB:
+                continue
+
             edge = self.optimal_edge(matrix)
             M_with_edge, M_without_edge = self.two_matrix(matrix, edge)
 
+            # Pierwszy podproblem
+            # Zabronienie podcyklu
+            # Dodatkowa redukcja i nowe LB
+
+            # Drugi podproblem
+            # Redukcja i nowe LB
 
 
 # matrix = [
@@ -95,3 +109,5 @@ matrix = [
     [2, 2, 7, 0, inf],
 ]
 
+little = Little_algorithm(matrix)
+little.algoritm(np.array(matrix))
