@@ -55,6 +55,8 @@ class Little_algorithm:
             if suma > suma_max:
                 suma_max = suma
                 odcinek = (y, x)
+        if odcinek == (-1, -1):
+            raise RuntimeError("Nie znaleziono jakiegokolwiek wierzchołka optymalnego - błąd?")
         return odcinek
 
     def two_matrix(self, matrix, edge):
