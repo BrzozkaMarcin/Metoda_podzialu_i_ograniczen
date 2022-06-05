@@ -156,6 +156,9 @@ class Little_algorithm:
             # Posortowanie podproblemów pod względem LB
             Problem_list.sort(key=lambda elem: elem[1], reverse=False)
 
+        print(edges_result)
+        print(LB_result)
+
 
 # matrix = [
 #     [inf, 2, 3, 2, 1, 2],
