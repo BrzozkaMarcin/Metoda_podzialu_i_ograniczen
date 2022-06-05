@@ -78,7 +78,7 @@ class Little_algorithm:
 
         while Problem_list:
             # Zajęcie się podproblemem - usunięcie go z listy
-            matrix, LB, edges = Problem_list.pop()
+            matrix, LB, edges = Problem_list.pop(0)
 
             # Gdy LB pod problemu większe niż LB aktualnego rozwiązania - KZ3
             if LB > LB_result:
