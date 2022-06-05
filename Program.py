@@ -68,6 +68,7 @@ class Little_algorithm:
         return M1, M2
 
     def algorithm(self, matrix):
+        size = len(matrix)
         LB_result = inf
         edges_result = []
 
@@ -82,6 +83,11 @@ class Little_algorithm:
             # Gdy LB pod problemu większe niż LB aktualnego rozwiązania - KZ3
             if LB > LB_result:
                 continue
+
+            # Znaleziono rozwiązanie dla podproblemu
+            if len(edges) == size and LB < LB_result:
+                LB_result = LB
+                edges_result = edges
 
             # Znajdź krawędź o optymalnym koszcie wyłączenia
             edge = self.optimal_edge(matrix)
