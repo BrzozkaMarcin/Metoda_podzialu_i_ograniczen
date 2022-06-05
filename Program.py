@@ -46,7 +46,7 @@ class Little_algorithm:
         suma_max = -np.inf
         # najlepszy odcinek
         odcinek: Tuple[int, int] = (-1, -1)
-        for i in zera[0]:
+        for i in range(len(zera[0])):
             y = zera[0][i]
             x = zera[1][i]
             A[y, x] = np.inf  # tymczasowe ustawienie na inf
