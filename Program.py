@@ -84,6 +84,9 @@ class Little_algorithm:
             if LB > LB_result:
                 continue
 
+            if np.max(matrix) == np.min(matrix):  # KZ1
+                continue
+
             # Znaleziono rozwiązanie dla podproblemu
             if len(edges) == size and LB < LB_result:
                 LB_result = LB
@@ -145,8 +148,10 @@ class Little_algorithm:
             LB_without_edge = LB + self.reduction(M_without_edge)
 
             # Dodanie problemu do listy podproblemów
-            Problem_list.append([M_with_edge, LB_with_edge, edges + [edge]])
-            Problem_list.append([M_without_edge, LB_without_edge, edges])
+            if np.max(M_with_edge) != np.min(M_with_edge):  # KZ1
+                Problem_list.append([M_with_edge, LB_with_edge, edges + [edge]])
+            if np.max(M_without_edge) != np.min(M_without_edge):  # KZ1
+                Problem_list.append([M_without_edge, LB_without_edge, edges])
 
             # Posortowanie podproblemów pod względem LB
             Problem_list.sort(key=lambda elem: elem[1], reverse=False)
