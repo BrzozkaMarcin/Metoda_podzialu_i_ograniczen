@@ -90,11 +90,6 @@ class Little_algorithm:
             M_with_edge, M_without_edge = self.two_matrix(matrix, edge)
 
             # Pierwszy podproblem
-            # Zabronienie podcyklu
-            # Dodatkowa redukcja i nowe LB
-
-            # PSikorski
-
             # Utwórz ścieżkę z posiadanych krawędzi, zaczynając od najnowszej.
             # A dokładniej wystarczy znaleźć wierzchołek początkowy i końcowy,
             # kontrolując przy tym długość podcyklu
@@ -109,15 +104,11 @@ class Little_algorithm:
                     # znajdź początek następnej krawędzi
                     # i zastąp jej koniec
                     k = next(v2 for v1, v2 in edges if v1 == k)
-
                     # warunek bezpieczeństwa: nie stworzyliśmy podcyklu
                     if k == edge[1]:
-                        # TODO: sprawdzić, czy trzeba obsługiwać zaistnienie podcyklu
                         raise RuntimeError("Osiągnięto niechciany (pod)cykl")
-
                     # dłukość cyklu zwiększona o 1
                     dlugosc += 1
-
                 except StopIteration:
                     # udało się bez problemów dotrzeć do końca ścieżki
                     break
@@ -129,27 +120,27 @@ class Little_algorithm:
                     # znajdź początek następnej krawędzi
                     # i zastąp jej koniec
                     p = next(v1 for v1, v2 in edges if v2 == p)
-
                     # warunek bezpieczeństwa: nie stworzyliśmy podcyklu
                     if p == edge[0]:
-                        # TODO: patrz wyżej do analogicznego miejsca
                         raise RuntimeError("Osiągnięto niechciany (pod)cykl")
-
                     # dłukość cyklu zwiększona o 1
                     dlugosc += 1
-
                 except StopIteration:
                     # udało się bez problemów dotrzeć do końca ścieżki
                     break
-            
-            # zabronienie przejścia (k, p)
-            # TODO: sprawdź, czy to dobra macierz
-            M_with_edge[k, p] = np.inf
 
-            # /PSikorski
+            # zabronienie przejścia (k, p)
+            M_with_edge[k, p] = np.inf
+            # Nowa redukcja
+            LB_with_edge = LB + self.reduction(M_with_edge)
 
             # Drugi podproblem
             # Redukcja i nowe LB
+            LB_without_edge = LB + self.reduction(M_without_edge)
+
+            # Dodanie problemu do listy podproblemów
+            Problem_list.append([M_with_edge, LB_with_edge, edges + [edge]])
+            Problem_list.append([M_without_edge, LB_without_edge, edges])
 
             # Posortowanie podproblemów pod względem LB
             Problem_list.sort(key=lambda elem: elem[1], reverse=False)
