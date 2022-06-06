@@ -214,27 +214,31 @@ class Little_algorithm:
             # Posortowanie podproblemów pod względem LB
             Problem_list.sort(key=lambda elem: elem[1], reverse=False)
 
-        print(edges_result)
         print(LB_result)
         print(path_result)
 
 
 # matrix = [
-#     [inf, 2, 3, 2, 1, 2],
-#     [2, inf, 1, 3, 2, 4],
-#     [3, 1, inf, 1, 1, 3],
-#     [2, 3, 1, inf, 2, 2],
-#     [1, 2, 1, 2, inf, 3],
-#     [2, 4, 3, 2, 3, inf],
+#     [inf, 5, 4, 6, 6],
+#     [8, inf, 5, 3, 4],
+#     [4, 3, inf, 3, 1],
+#     [8, 2, 5, inf, 6],
+#     [2, 2, 7, 0, inf],
 # ]
 
 matrix = [
-    [inf, 5, 4, 6, 6],
-    [8, inf, 5, 3, 4],
-    [4, 3, inf, 3, 1],
-    [8, 2, 5, inf, 6],
-    [2, 2, 7, 0, inf],
+    [inf, 8, 7, 3, 8],
+    [8, inf, 9, 3, 8],
+    [7, 7, inf, 9, 4],
+    [6, 3, 9, inf, 5],
+    [3, 9, 3, 8, inf],
 ]
 
-little = Little_algorithm(matrix)
-little.algorithm(np.array(matrix))
+cm1 = [[inf, 10, 8, 19, 12],
+       [10, inf, 20, 6, 3],
+       [8,  20, inf, 4, 2],
+       [19, 6, 4, inf, 7],
+       [12, 3, 2, 7, inf]]
+
+little = Little_algorithm(cm1)
+little.algorithm(np.array(cm1))
