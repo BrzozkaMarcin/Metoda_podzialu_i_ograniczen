@@ -3,7 +3,7 @@
 from copy import deepcopy
 import numpy as np
 from math import inf
-from typing import Tuple
+from typing import Tuple, List
 
 
 class Little_algorithm:
@@ -73,6 +73,7 @@ class Little_algorithm:
         size = len(matrix)
         LB_result = inf
         edges_result = []
+        path_result: List[int] = []
 
         LB = self.reduction(matrix)
         P = [matrix, LB, []]
@@ -82,17 +83,72 @@ class Little_algorithm:
             # Zajęcie się podproblemem - usunięcie go z listy
             matrix, LB, edges = Problem_list.pop(0)
 
-            # Gdy LB pod problemu większe niż LB aktualnego rozwiązania - KZ3
+            # # Gdy LB pod problemu większe niż LB aktualnego rozwiązania - KZ2
             if LB > LB_result:
                 continue
 
-            if np.max(matrix) == np.min(matrix):  # KZ1
+            # if np.max(matrix) == np.min(matrix):  # KZ1
+            #     continue
+
+            # Czy znaleziono rozwiązanie dla podproblemu?
+            #  === Kryteria zamykania ===
+            # Sprawdź, czy istnieje jednoznaczna ścieżka TSP
+            # Jeśli istnieje i nie jest podcyklem - rozwiązanie
+            # Jeśli to podcykl - zamknij podproblem
+            # Podcykl nie powinien się zdarzyć, dlatego zgłoś wtedy błąd
+
+            # zaczynam od dowolnego wierzchołka
+            v_start: int = 0
+            v: int = v_start
+            loop_length: int = 0
+            problem_closed: bool = False
+            full_path: List[int] = [v]
+            while True:
+
+                # poszukuję następny wierzchołek, najpierw w obowiązkowych krawędziach
+                try:
+                    v = next(v2 for v1, v2 in edges if v1 == v)
+                    # znaleziono wierzchołek
+                except StopIteration:
+                    # nie ma takiej krawędzi, przeszukaj macierz
+                    # w macierzy musi być tylko jedno wyjście dla danego wierzchołka
+                    m = matrix[v, :]
+                    u = np.where(m != np.inf)[0]
+                    if len(u) == 1:
+                        # znaleziono następny wierzchołek
+                        v = u[0]
+                    elif len(u) == 0: 
+                        # nie można przejść dalej - KZ1
+                        problem_closed = True
+                        break
+                    else:
+                        # za dużo możliwości przejścia - KZ0
+                        break
+
+                # ścieżka jest dłuższa
+                loop_length += 1
+                full_path.append(v)
+
+                # warunek do-while
+                # znaleziono jakiś (pod)cykl
+                if v == v_start:
+                    # sprawdzam, czy to nie jest podcykl
+                    if loop_length != size:
+                        # KZ1
+                        problem_closed = True
+                    break
+            
+            if problem_closed:
                 continue
 
-            # Znaleziono rozwiązanie dla podproblemu
-            if len(edges) == size and LB < LB_result:
-                LB_result = LB
-                edges_result = edges
+            # jeśli udało się przejść pełną ścieżkę, sprawdź KZ3
+            if loop_length == size:
+                if LB < LB_result:
+                    # nastąpiła poprawa rozwiązania
+                    LB_result = LB
+                    edges_result = edges
+                    path_result = full_path
+                continue
 
             # Znajdź krawędź o optymalnym koszcie wyłączenia
             edge = self.optimal_edge(matrix)
@@ -160,6 +216,7 @@ class Little_algorithm:
 
         print(edges_result)
         print(LB_result)
+        print(path_result)
 
 
 # matrix = [
