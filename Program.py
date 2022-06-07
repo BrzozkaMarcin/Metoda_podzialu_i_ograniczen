@@ -5,7 +5,6 @@ import numpy as np
 from math import inf
 from typing import Tuple, List
 
-
 class Little_algorithm:
     def __init__(self, matrix):
         self.matrix = matrix
@@ -78,10 +77,18 @@ class Little_algorithm:
         LB = self.reduction(matrix)
         P = [matrix, LB, []]
         Problem_list = [P]
-
+        PP_counter = 0
         while Problem_list:
             # Zajęcie się podproblemem - usunięcie go z listy
             matrix, LB, edges = Problem_list.pop(0)
+            print('='*50)
+            print('PP.',PP_counter)
+            print(matrix)
+            print('LB = ',LB)
+            print("Ścieżka: ", edges)
+            print('='*50)
+            PP_counter += 1
+
 
             # # Gdy LB pod problemu większe niż LB aktualnego rozwiązania - KZ2
             if LB > LB_result:
@@ -240,5 +247,14 @@ cm1 = [[inf, 10, 8, 19, 12],
        [19, 6, 4, inf, 7],
        [12, 3, 2, 7, inf]]
 
-little = Little_algorithm(cm1)
-little.algorithm(np.array(cm1))
+sample_matrix = [
+    [inf,2,3,2,1,4],
+    [2,inf,1,2,1,2],
+    [3,1,inf,3,4,1],
+    [2,2,3,inf,2,2],
+    [1,1,4,2,inf,3],
+    [4,2,1,2,3,inf],
+]
+
+little = Little_algorithm(sample_matrix)
+little.algorithm(np.array(sample_matrix))
